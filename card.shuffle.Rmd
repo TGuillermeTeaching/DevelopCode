@@ -35,7 +35,7 @@ deck_split
 
 We can make a deck of cards by naming the cards from 1 to _n_.
 For tracking the cards we will coerce the name as characters so the first card initially is called `"1"`.
-`"1"` can then be in position _x_ after
+`"1"` can then be in position _x_ after any shuffles.
 The argument this function will take is simply the number of cards: `n_cards`.
 The function returns a series of _n_ cards into a `"list"` object: this is our deck in `R`.
 
@@ -107,7 +107,7 @@ deck_8 <- make.deck(8)
 ## This is what's in the deck
 deck_8
 
-## Then let's split it:
+## Then let's split it:
 split_deck_8 <- split.deck(deck_8)
 
 ## And these are our two half decks
@@ -138,7 +138,7 @@ shuffled_deck_8 <- shuffle.deck(split.deck(deck_8))
 We can now compare the original deck and the shuffled one using logic comparisons:
 
 ```{r}
-## Are the cards in the same order?
+## Are the cards in the same order?
 deck_8[[1]] == shuffled_deck_8[[1]]
 ```
 
@@ -170,7 +170,7 @@ while(!all(deck_8[[1]] == shuffled_deck_8[[1]])) {
 When the while loop stops, we have the number of shuffles necessary to reorder the deck:
 
 ```{r}
-## How many shuffles where performed?
+## How many shuffles where performed?
 count_shuffles
 ```
 
@@ -217,11 +217,11 @@ n.shuffles(52)
 Or actually for any even number of cards from 2 to 100 cards and plot the solutions:
 
 ```{r}
-## The deck sizes
-deck_sizes <- as.list(seq(from = 2, to = 100, by = 2))
+## The deck sizes
+deck_sizes <- as.list(seq(from = 2, to = 10000, by = 2))
 
 ## Apply all the deck shuffle sizes
-shuffle_numbers <-  lapply(deck_sizes, n.shuffles)
+shuffle_numbers <- lapply(deck_sizes, n.shuffles)
 
 ## Display the results
 plot(deck_sizes, shuffle_numbers, type = "l",
