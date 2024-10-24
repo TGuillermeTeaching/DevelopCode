@@ -13,30 +13,61 @@ output:
 That's it.
 Just do that.
 
-
 ### But was is functionalising?
 
 The idea is to divide the tasks of your aglorithm into standardised and transposable units.
 Basically making the smaller possible functions that do a specific thing: i.e. small reusable bits of code that do one thing.
 
-This sounds a bit daunting at first but can 
+This sounds a bit daunting at first but can save a lot of time in the future (e.g. for big task or repetitive tasks).
+But mainly I think it makes the code much more easier to understand and makes you think about what the code is doing (and why) before actually doing it.
+
+It also allows you to better understand the structure of objects in R which is inherently what you are playing with when functionalising your code: you are going to modify objects in different ways (e.g. data manipulations) in order to get something out of it for publication (plot, table, p-value, etc.).
+
+### Which objects?
+
+Objects in R are pretty much everything in R that you manipulate write and transform.
+In it's essence, `R` is a smart interface for the `C` programming language.
+In `C` you can pretty much everything you want and need scaling up from bitwise operations (AND, OR, XOR, etc.) on bites (sets of bits).
+I find it sometimes useful to go back to this very basic structure to understand that what you are doing in `R` is not much more different but `R` thankfully does all the heavy lifting for you.
+
+For example, you want to do this simple operation:
+
+```{r}
+a <- 1
+b <- 42
+c <- a + b
+```
+
+Basically, `R` is going to assign the integer value `1` to an element you call `a`.
+By the way the arrow is the assignment function: try doing writing \`<-\`(z, 2) in `R` and see what it does.
+It's basically the function to attribute the integer value `2` to the element called `z`.
+Now they are called `a` and `1` etc on you interface but basically they are just pointers to memory addresses in your machine: the integer `1` is stored in binary somewhere on your RAM (`0000000000000001`) which has an address (some hexadecimal stuff like this: `r lobstr::obj_addr(a)`) and the address is conveniently called `a` in your computer.
+Same goes for `b` and if you do `a + b` (or \`+\`(a, b) - same thing) it's adding what these two addresses are pointing at together:
 
 
+```
+   0000000000000001
+ & 0000000000101010
+-------------------
+   0000000000101011
+```
 
 
+And attributing these results to a spot in the RAM that you can track (here this address for `c` is `r lobstr::obj_addr(c)`).
+And this basically scaling up to everything you do.
 
+I find that keeping this in mind (at some level) can help you understand what is actually happening in your code beyond the actually statsitics you are doing: i.e. what are you asking your computer to do.
 
-# Functions
+For example `"list"` objects are usually nested lists of addresses pointing to specific data that can be modified depending on what you need (this will make sense when we'll talk about `for` loops ;)).
 
-
-# Objects
 
 ![](Lists_from_Wickham.png)
 
-Screenshot from Hadley Wickham's best book: [Advanced R](https://adv-r.hadley.nz/index.html).
-
+Screenshot from Hadley Wickham's best book: [Advanced R](https://adv-r.hadley.nz/index.html). Basically a lot of useful things are in this book!
 
 # Functionalising your scripts:
+
+So how do you functionalise stuff knowing all that?
 
 I wrote this for a project in 2011.
 Note that the comments are in french but pretty easy to understand in english.
